@@ -10,6 +10,7 @@ void outputContainer(const Container& container) {
 }
 
 enum class What_is {
+    is_head_snake,
     is_snake,
     is_wall,
     is_space,
@@ -28,6 +29,13 @@ enum class Dir {
     right,
     left,
     without
+};
+
+enum class Color {
+    red = 0,
+    blue = 1,
+    green = 2,
+    orange = 3
 };
 
 struct Cordinates {
@@ -73,6 +81,8 @@ class Snakes {
     Cordinates tail = {0, 0};
     sf::Clock time_delete;
     sf::Time time = sf::seconds(4);
+    Color head = Color::red;
+    Color body = Color::blue;
 
 public:
     Snakes(int x, int y) {
@@ -85,18 +95,47 @@ public:
     const std::deque<BodyPart>& get_body_deque() const {
         return m_deque;
     }
+
+    int color_head() {
+        switch (head) {
+            case Color::red:
+                return 0;
+            case Color::blue:
+                return 1;
+            case Color::green:
+                return 2;
+            case Color::orange:
+                return 3;
+        }
+        return 0;
+    }
+
+    int color_body() {
+        switch (body) {
+            case Color::red:
+                return 0;
+            case Color::blue:
+                return 1;
+            case Color::green:
+                return 2;
+            case Color::orange:
+                return 3;
+        }
+        return 1;
+    }
+
     void next(Dir dir) {
         if (time_delete.getElapsedTime() > time) {
             tail = {m_deque.back().cordinates.x, m_deque.back().cordinates.y};
             time_delete.restart();
             m_deque.pop_back();
-            
         }
         if (dir != Dir::without && m_deque[0].dir != reverse_dir(dir)) {
             change_dir(dir);
         } else
             not_change_dir();
     }
+
     void eat_apple(int x, int y) {
         m_deque.back().head = Head::is_body;
         m_deque.push_back({Head::is_tail, m_deque.back().dir, tail.x, tail.y});

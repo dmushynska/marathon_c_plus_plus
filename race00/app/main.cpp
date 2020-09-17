@@ -84,7 +84,8 @@ void menu(int width, int height) {
             }
             if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Enter) {
                 if (i == 1) {
-                    test(width, height);
+                    test_1(width, height);
+                    // test(width, height);
                 }
                 if (x == 3) {
                     window.clear(sf::Color(255, 255, 255, 255));

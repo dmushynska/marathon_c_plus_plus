@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <array>
 #include <string>
+#define SIZE_PICTURE 256
 
 struct Textures {
     sf::Texture texture;
